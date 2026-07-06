@@ -27,15 +27,13 @@ const steps = style({
   display: 'flex',
   alignItems: 'center',
   gap: '4px',
-  margin: '2rem 0 1rem',
+  margin: '2rem 0 0',
   width: '100%',
-  justifyContent: 'center',
 });
 
 const step = recipe({
   base: {
     width: '100%',
-    maxWidth: '64px',
     height: '4px',
     borderRadius: '100px',
     backgroundColor: '#DCDCDD',
@@ -58,13 +56,24 @@ const cellOption = recipe({
     padding: '12px',
     transition: 'all 0.3s ease-in-out',
     cursor: 'pointer',
-    height: '72px',
   },
   variants: {
     selected: {
       true: {
         borderColor: '#7A63F1',
         backgroundColor: '#EEEDFF',
+      },
+    },
+    wrong: {
+      true: {
+        backgroundColor: '#FFEBEB',
+        borderColor: 'transparent',
+      },
+    },
+    right: {
+      true: {
+        backgroundColor: '#DFF8E5',
+        borderColor: '#058A8F',
       },
     },
   },
