@@ -57,9 +57,7 @@ export const App = () => {
   }, []);
   useEffect(() => {
     if (currentQuestion && view === 'quiz') {
-      window.gtag('event', '7680_question_show', {
-        question: `q${currentQuestion.id}`,
-      });
+      window.gtag('event', '7680_question_impression', { var: 'var1', dimension_1: currentQuestion.question });
     }
   }, [currentQuestion, view]);
 
@@ -67,30 +65,41 @@ export const App = () => {
     if (view === 'quiz') {
       document.body.style.background = '#FFFFFF';
     } else {
-      window.gtag('event', '7680_quiz_show');
+      window.gtag('event', '7680_landing_impression', { var: 'var1' });
       document.body.style.background = 'linear-gradient(169.39deg, #00E8F0 -0.54%, #266FFF 70.32%, #9933FF 100.08%)';
     }
   }, [view]);
 
   const submit = () => {
     if (finished) {
-      window.gtag('event', '7680_result_request');
-      const countRightAnswers = answers.filter(a => a.answer === questions.find(q => q.id === a.questionId)?.answer).length;
-      const link = links[countRightAnswers] || links[links.length - 1];
+      const link = links[rightAnswersCount] || links[links.length - 1];
       window.location.replace(link);
       return;
     }
 
     if (isActiveQuestionAnswered) {
       setRightAnswersCount(rightAnswersCount + (draftAnswer?.answer === currentQuestion.answer ? 1 : 0));
-      setDraftAnswer(null);
       if (!answers.some(a => a.questionId === currentQuestion.id)) {
         return;
       }
+      /**
+       * dimension_1: текст вопроса
+dimension_2: выбранный ответ
+dimension_3: правильно ли выбран ответ
+dimension_4: вышло ли время
+dimension_5: количество набранных очков (сколько раз ответил правильно) 
+
+       */
       window.gtag('event', '7680_continue_click', {
-        question: `q${currentQuestion.id}`,
-        answer: `q${currentQuestion.id}_a${currentQuestion.options.indexOf(answers.find(a => a.questionId === currentQuestion.id)?.answer || '') + 1}`,
+        var: 'var1',
+        dimension_1: currentQuestion.question,
+        dimension_2: draftAnswer?.answer || '',
+        dimension_3: draftAnswer?.answer === currentQuestion.answer ? 'Да' : 'Нет',
+        dimension_4: isActiveQuestionAnswered ? 'Нет' : 'Да',
+        dimension_5: String(rightAnswersCount),
       });
+      setDraftAnswer(null);
+
       setActiveIndex(index => index + 1);
     } else {
       if (!draftAnswer) {
@@ -217,7 +226,7 @@ export const App = () => {
           block
           view="secondary"
           onClick={() => {
-            window.gtag('event', '7680_quiz_start');
+            window.gtag('event', '7680_start_click', { var: 'var1' });
             setView('quiz');
           }}
           className={appSt.btnWhite}
