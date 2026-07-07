@@ -31,10 +31,10 @@ const questions = [
 ];
 
 const links = [
-  'a-investments://CA?type=sdui_screen&endpoint=v1/invest-main-screen-view/investment-longread/92441%3flocation=AI_MAIN%26campaignCode=OXV_KVIZ_AI%26presentationType=PRESENT',
-  'a-investments://CA?type=sdui_screen&endpoint=v1/invest-main-screen-view/investment-longread/92398%3flocation=AI_MAIN%26campaignCode=OXV_KVIZ_AI%26presentationType=PRESENT',
-  'a-investments://CA?type=sdui_screen&endpoint=v1/invest-main-screen-view/investment-longread/92472%3flocation=AI_MAIN%26campaignCode=OXV_KVIZ_AI%26presentationType=PRESENT',
-  'a-investments://CA?type=sdui_screen&endpoint=v1/invest-main-screen-view/investment-longread/92479%3flocation=AI_MAIN%26campaignCode=OXV_KVIZ_AI%26presentationType=PRESENT',
+  'alfabank://longread?endpoint=v1/adviser/longreads/129870&utm_source=crm_am_publication&utm_medium=mon_pas&utm_campaign=ENG_VICTMIL&utm_term=ba&utm_content=collection_buy',
+  'alfabank://longread?endpoint=v1/adviser/longreads/129872&utm_source=crm_am_publication&utm_medium=mon_pas&utm_campaign=ENG_VICTMIL&utm_term=ba&utm_content=collection_buy',
+  'alfabank://longread?endpoint=v1/adviser/longreads/129873&utm_source=crm_am_publication&utm_medium=mon_pas&utm_campaign=ENG_VICTMIL&utm_term=ba&utm_content=collection_buy',
+  'alfabank://longread?endpoint=v1/adviser/longreads/129875&utm_source=crm_am_publication&utm_medium=mon_pas&utm_campaign=ENG_VICTMIL&utm_term=ba&utm_content=collection_buy',
 ];
 
 const QUESTION_TIME_MS = 30 * 1000;
@@ -75,10 +75,8 @@ export const App = () => {
   const submit = () => {
     if (finished) {
       window.gtag('event', '7680_result_request');
-      const fisrtAnswerIndex = questions[0].options.indexOf(
-        answers.find(a => a.questionId === questions[0].id)?.answer || '',
-      );
-      const link = links[fisrtAnswerIndex] || links[links.length - 1];
+      const countRightAnswers = answers.filter(a => a.answer === questions.find(q => q.id === a.questionId)?.answer).length;
+      const link = links[countRightAnswers] || links[links.length - 1];
       window.location.replace(link);
       return;
     }
