@@ -73,6 +73,7 @@ export const App = () => {
   const submit = () => {
     if (finished) {
       const link = links[rightAnswersCount] || links[links.length - 1];
+      console.log('redirect to', rightAnswersCount, link);
       window.location.replace(link);
       return;
     }
@@ -212,12 +213,6 @@ dimension_5: количество набранных очков (сколько 
     <>
       <div className={appSt.container}>
         <img src={hb} alt="hb" width="100%" height={489} style={{ objectFit: 'contain', margin: '1rem auto 0' }} />
-
-        <Typography.Text color="primary-inverted" view="primary-medium" style={{ textAlign: 'center' }}>
-          Пройди тест и узнай, какой ты
-          <br />
-          инвестор будущего
-        </Typography.Text>
       </div>
       <Gap size={96} />
 
