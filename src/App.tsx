@@ -46,8 +46,6 @@ export const App = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [rightAnswersCount, setRightAnswersCount] = useState(0);
 
-  console.log('rightAnswersCount', rightAnswersCount, 'draftAnswer', draftAnswer);
-
   const currentQuestion = questions[activeIndex];
   const finished = answers.length === questions.length;
   const isActiveQuestionAnswered = answers.some(a => a.questionId === currentQuestion?.id);
@@ -75,7 +73,6 @@ export const App = () => {
   const submit = () => {
     if (finished) {
       const link = links[rightAnswersCount] || links[links.length - 1];
-      console.log('redirect to', rightAnswersCount, link);
       window.location.replace(link);
       return;
     }
@@ -167,6 +164,7 @@ dimension_5: количество набранных очков (сколько 
                       },
                     ],
               );
+              setRightAnswersCount(rightAnswersCount + (draftAnswer?.answer === currentQuestion.answer ? 1 : 0));
             }}
           />
 
