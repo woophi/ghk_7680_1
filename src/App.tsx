@@ -81,7 +81,6 @@ export const App = () => {
     }
 
     if (isActiveQuestionAnswered) {
-      setRightAnswersCount(rightAnswersCount + (draftAnswer?.answer === currentQuestion.answer ? 1 : 0));
       if (!answers.some(a => a.questionId === currentQuestion.id)) {
         return;
       }
@@ -127,6 +126,7 @@ dimension_5: количество набранных очков (сколько 
               },
             ],
       );
+      setRightAnswersCount(rightAnswersCount + (draftAnswer?.answer === currentQuestion.answer ? 1 : 0));
     }
   };
 
