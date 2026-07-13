@@ -213,6 +213,11 @@ dimension_5: количество набранных очков (сколько 
     <>
       <div className={appSt.container}>
         <img src={hb} alt="hb" width="100%" height={489} style={{ objectFit: 'contain', margin: '1rem auto 0' }} />
+
+        <Typography.Text color="primary-inverted" view="primary-medium" style={{ textAlign: 'center' }}>
+          Проверьте свои знания
+          <br />в викторине для инвесторов
+        </Typography.Text>
       </div>
       <Gap size={96} />
 
