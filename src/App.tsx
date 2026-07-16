@@ -231,7 +231,7 @@ dimension_5: количество набранных очков (сколько 
           }}
           className={appSt.btnWhite}
         >
-          Пройти тест
+          Сыграть
         </Button>
       </div>
     </>
